@@ -1,0 +1,85 @@
+/* Фон змінюється залежно від погоди: JS міняє клас на <body> */
+body { --sky-top: #2f80d8; --sky-bottom: #7dbcf5; }
+body.sky-clear-day   { --sky-top: #2f80d8; --sky-bottom: #7dbcf5; }
+body.sky-clear-night { --sky-top: #0b1d3a; --sky-bottom: #2f3f6e; }
+body.sky-cloud       { --sky-top: #5d6d7e; --sky-bottom: #98a8b6; }
+body.sky-rain        { --sky-top: #2f4256; --sky-bottom: #5f7589; }
+body.sky-snow        { --sky-top: #7f9bb5; --sky-bottom: #c9d6e1; }
+body.sky-storm       { --sky-top: #1c2430; --sky-bottom: #4b4f6b; }
+body.sky-fog         { --sky-top: #86949f; --sky-bottom: #bcc5cc; }
+
+:root { --muted: rgba(255,255,255,.72); --glass: rgba(255,255,255,.16); }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+body {
+  min-height: 100dvh;
+  font-family: -apple-system, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #fff;
+  background: linear-gradient(180deg, var(--sky-top), var(--sky-bottom)) fixed;
+  padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+}
+main { max-width: 480px; margin: 0 auto; padding: 16px; }
+
+/* Пошук */
+#search-form { position: relative; z-index: 5; }
+#city-input {
+  width: 100%; padding: 12px 16px; border: 0; border-radius: 14px;
+  font-size: 17px; color: #fff; background: var(--glass);
+  -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+}
+#city-input::placeholder { color: var(--muted); }
+#suggestions {
+  position: absolute; left: 0; right: 0; top: calc(100% + 6px); list-style: none;
+  background: rgba(20,30,45,.88); border-radius: 14px; overflow: hidden;
+  -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+}
+#suggestions button {
+  width: 100%; padding: 12px 16px; border: 0; background: none; color: #fff;
+  font: inherit; font-size: 17px; text-align: left; cursor: pointer;
+}
+#suggestions li + li button { border-top: 1px solid rgba(255,255,255,.12); }
+#suggestions small { display: block; font-size: 13px; color: var(--muted); }
+
+#status { text-align: center; padding: 24px 0; color: var(--muted); }
+
+/* Велика температура зверху */
+.now { text-align: center; padding: 28px 0 20px; }
+.now h1 { font-size: 34px; font-weight: 400; }
+.temp { font-size: 96px; font-weight: 200; line-height: 1.05; }
+#desc { font-size: 20px; }
+#range { font-size: 18px; margin-top: 2px; }
+
+/* Скляні картки */
+.card {
+  background: var(--glass); border-radius: 20px; padding: 12px 16px; margin-top: 12px;
+  -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+}
+.card h2 {
+  font-size: 14px; font-weight: 500; color: var(--muted);
+  padding-bottom: 8px; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,.2);
+}
+
+/* Погодинний прогноз: горизонтальна прокрутка */
+.hourly { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+.hourly::-webkit-scrollbar { display: none; }
+.hour { flex: none; display: grid; gap: 6px; justify-items: center; font-size: 15px; }
+.ico { font-size: 22px; }
+
+/* Прогноз по днях */
+#daily { list-style: none; }
+#daily li {
+  display: grid; grid-template-columns: 76px 28px 36px 1fr 36px; align-items: center;
+  gap: 8px; padding: 9px 0; font-size: 17px;
+}
+#daily li + li { border-top: 1px solid rgba(255,255,255,.15); }
+.lo { color: var(--muted); text-align: right; }
+.hi { text-align: right; }
+.bar { height: 4px; border-radius: 2px; background: rgba(255,255,255,.22); overflow: hidden; }
+.bar i { display: block; height: 100%; border-radius: 2px; background: linear-gradient(90deg, #7bd8ff, #ffd86b); }
+
+/* Відчувається / вологість / вітер */
+.details { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
+.details .card { margin: 0; padding: 12px; }
+.details p { font-size: 26px; font-weight: 300; }

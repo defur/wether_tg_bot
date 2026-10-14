@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Погода</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Скрипт Telegram: дає об'єкт Telegram.WebApp, коли сторінка відкрита в Telegram -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body class="sky-clear-day">
+  <main>
+    <!-- Пошук міста -->
+    <form id="search-form" autocomplete="off">
+      <input id="city-input" type="search" placeholder="Знайти місто" aria-label="Назва міста">
+      <ul id="suggestions" hidden></ul>
+    </form>
+
+    <!-- Повідомлення: завантаження / помилка -->
+    <p id="status" role="status"></p>
+
+    <!-- Сама погода (спочатку прихована, показується після завантаження) -->
+    <section id="weather" hidden>
+      <header class="now">
+        <h1 id="city-name"></h1>
+        <p id="temp" class="temp"></p>
+        <p id="desc"></p>
+        <p id="range"></p>
+      </header>
+
+      <section class="card">
+        <h2>Погодинний прогноз</h2>
+        <div id="hourly" class="hourly"></div>
+      </section>
+
+      <section class="card">
+        <h2>Прогноз на 7 днів</h2>
+        <ul id="daily"></ul>
+      </section>
+
+      <section class="details">
+        <div class="card"><h2>Відчувається</h2><p id="feels"></p></div>
+        <div class="card"><h2>Вологість</h2><p id="humidity"></p></div>
+        <div class="card"><h2>Вітер</h2><p id="wind"></p></div>
+      </section>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
